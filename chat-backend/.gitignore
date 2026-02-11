@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# compiled output — tsc generates this, never commit it
+dist
+
+# environment variables 
+.env
+.env.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS garbage
+.DS_Store
+Thumbs.db
+
+# editor folders
+.idea
