@@ -14,16 +14,16 @@ const nodeEnv = process.env.NODE_ENV;
 export const generateTokenAndSetCookie = (userId: string, res: Response) => {
     //create our signed token
     const token = jwt.sign(
-        { userId },
-        jwtKey!,
-        { expiresIn: '7d' }
+    {userId},
+    jwtKey!,
+    {expiresIn: '7d'}
     );
 
     //create the cookie to store the token
-    res.cookie('jwt', token, {
+    res.cookie( 'jwt', token, {
         httpOnly: true,
-        secure: nodeEnv == 'production',
-        maxAge: 7 * 24 * 60 * 1000,
+        secure : nodeEnv == 'production',
+        maxAge : 7 * 24 * 60 * 1000,
 
     });
 

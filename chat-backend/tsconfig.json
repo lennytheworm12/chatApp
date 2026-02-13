@@ -5,9 +5,9 @@
         "module": "nodenext",
         "moduleResolution": "nodenext",
         "target": "esnext",
-        "types": [
-            "node"
-        ],
+        // "types": [
+        //     "node"
+        // ],
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
@@ -22,6 +22,7 @@
         "skipLibCheck": true
     },
     "include": [
+        "src/types",
         "src"
     ]
 }

@@ -22,10 +22,6 @@ export const registerUser = async (req: Request<{}, {}, RegisterData>, res: Resp
             //mongoose auto 
             email: req.body.email,
             password: hashedPassword,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            image: req.body.image,
-            color: req.body.color,
         })
 
 
