@@ -30,6 +30,7 @@
         "@types/express": "^5.0.6",
         "@types/jsonwebtoken": "^9.0.10",
         "@types/node": "^25.2.3",
+        "@types/socket.io": "^3.0.2",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     }

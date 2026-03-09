@@ -31,3 +31,9 @@ export interface UpdateProfileData {
 export interface SearchContactsData {
     searchTerm: string;
 }
+
+
+export interface GetMessagesData {
+    id:string;
+}
+

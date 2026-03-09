@@ -9,7 +9,6 @@ import { logoutUser } from '../controllers/auth.logout.js';
 import { verifyUser } from '../middleware/auth.middleware.js';
 import { updateProfile } from "../controllers/auth.updateProfile.js";
 import { getUserInfo } from "../controllers/auth.getUserInfo.js";
-import {searchForUsers} from "../controllers/auth.searchForUsers.js";
 
 const router: express.Router = express.Router();
 
@@ -21,7 +20,6 @@ router.post('/login', loginUser);
 router.post('/logout', verifyUser, logoutUser);
 router.post('/update-profile', verifyUser, updateProfile);
 router.get('/userinfo', verifyUser, getUserInfo);//required black box spec
-router.get('/search', verifyUser, searchForUsers); //searchs the db for users
 
 
 
