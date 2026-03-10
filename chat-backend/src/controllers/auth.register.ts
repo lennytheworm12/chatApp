@@ -15,6 +15,9 @@ export const registerUser = async (req: Request<{}, {}, RegisterData>, res: Resp
     if (existingUser) {
         return res.status(409).json({ message: "email already in use" });
     }
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
 
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);

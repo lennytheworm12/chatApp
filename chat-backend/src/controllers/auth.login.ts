@@ -11,6 +11,9 @@ import { generateTokenAndSetCookie } from "../utils/auth.utils.js";
 export const loginUser = async (req: Request<{}, {}, LoginData>, res: Response) => {
 
     //logic for logging a user in
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ message: "Email and password are required" });
+    }
     try {
         //take a users email and query the db to see if email exists
         //and check if passwords match

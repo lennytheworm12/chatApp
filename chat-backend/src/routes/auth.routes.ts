@@ -13,7 +13,7 @@ import { getUserInfo } from "../controllers/auth.getUserInfo.js";
 const router: express.Router = express.Router();
 
 //add in routes like login
-router.post('/register', registerUser);
+router.post('/signup', registerUser);
 router.post('/login', loginUser);
 
 //after we verify the user req.userId is an existing field

@@ -11,6 +11,9 @@ import { UserModel } from "../models/user.model.js";
 export const updateProfile = async (req: Request<{}, {}, UpdateProfileData>, res: Response) => {
 
     //find the user in the data base and update it
+    if (!req.body.firstName || !req.body.lastName) {
+        return res.status(400).json({ message: 'Missing required fields' });
+    }
     try {
         const user = await UserModel.findByIdAndUpdate(req.userId,
             {
@@ -24,13 +27,13 @@ export const updateProfile = async (req: Request<{}, {}, UpdateProfileData>, res
 
 
         if (!user) return res.status(404).json({ message: "unable to find user" });
-        return res.status(200).json({user: user});
+        return res.status(200).json({ user: user });
 
 
 
     } catch (error) {
         console.error("updated user profile", error);
-        return res.status(500).json({message: "failed to update the profile"});
+        return res.status(500).json({ message: "failed to update the profile" });
 
     }
 }
