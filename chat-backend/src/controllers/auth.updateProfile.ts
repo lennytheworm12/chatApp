@@ -27,7 +27,8 @@ export const updateProfile = async (req: Request<{}, {}, UpdateProfileData>, res
 
 
         if (!user) return res.status(404).json({ message: "unable to find user" });
-        return res.status(200).json({ user: user });
+        const { _id, ...rest } = user.toObject();
+        res.status(200).json({ user: { id: _id, ...rest } });
 
 
 

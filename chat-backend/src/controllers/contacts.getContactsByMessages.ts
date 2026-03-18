@@ -48,7 +48,7 @@ export const getContactBySortedMessages = async (req: Request, res: Response) =>
             if (!user) return []; // Skip if user deleted
 
             return [{
-                _id: user._id,
+                id: user._id,
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,

@@ -31,7 +31,7 @@ export const loginUser = async (req: Request<{}, {}, LoginData>, res: Response) 
         //if password matches create the token
         generateTokenAndSetCookie(user._id.toString(), res);
         //returns the stripped user
-        return res.status(200).json({ user });
+        res.status(200).json({ user: { id: user._id, ...user.toObject() } });
         //returns the stripped user
 
     } catch (error) {

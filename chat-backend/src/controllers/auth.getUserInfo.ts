@@ -11,7 +11,8 @@ export const getUserInfo = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(404).json({ message: "user was not found" });
         }
-        return res.status(200).json({ user: user });
+        const { _id, ...rest } = user.toObject();
+        res.status(200).json({ user: { id: user._id, ...user.toObject() } });
 
 
 
