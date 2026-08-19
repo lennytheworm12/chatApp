@@ -146,7 +146,7 @@ No secrets are committed: production credentials live only in Render's environme
 
 ## Project Origin
 
-Portfolio DM began as an individual CS314 software-engineering backend project and was extended into an independent, full-stack, deployable application: a repository-owned React client, hardened authentication and Socket.IO contracts, production deployment configuration, and an end-to-end acceptance flow. The `frontend-project` gitlink in the repository is a historical artifact of the original course frontend and is not used by the app.
+Portfolio DM began as an individual CS314 software-engineering backend project and was extended into an independent, full-stack, deployable application: a repository-owned React client, hardened authentication and Socket.IO contracts, production deployment configuration, and an end-to-end acceptance flow. The former course frontend is not part of the application or deployment.
 
 ## Known Limitations
 

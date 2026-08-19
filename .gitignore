@@ -22,3 +22,6 @@ coverage/
 
 # Logs
 *.log
+
+# Historical course-frontend checkout (not part of the deployable app)
+/frontend-project/
