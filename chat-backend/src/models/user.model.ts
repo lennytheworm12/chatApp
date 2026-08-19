@@ -18,7 +18,7 @@ interface UserInterface {
 
 
 const userSchema = new Schema<UserInterface>({
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, select: false },//password wont be included in queries by default
     firstName: { type: String },
     lastName: { type: String },
@@ -36,4 +36,3 @@ userSchema.methods.toJSON = function() {
 }
 
 export const UserModel = model<UserInterface>('User', userSchema);
-
