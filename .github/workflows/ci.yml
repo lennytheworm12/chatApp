@@ -1,0 +1,74 @@
+name: CI
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ci-test-secret
+      CLIENT_ORIGIN: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.26.2
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: chat-backend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: chat-backend
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        working-directory: chat-backend
+        run: pnpm build
+
+      - name: Test
+        working-directory: chat-backend
+        run: pnpm test
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.26.2
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: chat-frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: chat-frontend
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        working-directory: chat-frontend
+        run: pnpm lint
+
+      - name: Build
+        working-directory: chat-frontend
+        run: pnpm build
