@@ -36,7 +36,7 @@ export const updateProfile = async (req: Request<{}, {}, UpdateProfileData>, res
                 ...(color !== undefined ? { color: color.trim() } : {}),
                 profileSetup: true,
             },
-            { new: true }
+            { returnDocument: 'after' }
         );
 
         if (!user) return res.status(404).json({ message: "unable to find user" });
