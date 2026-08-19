@@ -152,30 +152,34 @@ export function ChatApp({ user, onLogout }: ChatAppProps) {
           resolve(sent);
         };
 
-        sendMessage(
-          { recipient: activeContactId, content: trimmed, messageType: 'text' },
-          (err, ack) => {
-            if (err) {
-              finish(false, 'Not sent — the connection was lost. Your message is still in the box.');
-              return;
-            }
-            if (!ack) {
-              finish(false, 'Not sent — the server did not confirm the message.');
-              return;
-            }
-            if ('error' in ack) {
-              finish(false, ack.error);
-              return;
-            }
-            const normalized = normalizeSocketMessage(ack.message);
-            setHistory((prev) => ({
-              ...prev,
-              [activeContactId]: mergeMessage(prev[activeContactId] ?? [], normalized),
-            }));
-            void refreshContacts();
-            finish(true, null);
-          },
-        );
+        try {
+          sendMessage(
+            { recipient: activeContactId, content: trimmed, messageType: 'text' },
+            (err, ack) => {
+              if (err) {
+                finish(false, 'Not sent — the connection was lost. Your message is still in the box.');
+                return;
+              }
+              if (!ack) {
+                finish(false, 'Not sent — the server did not confirm the message.');
+                return;
+              }
+              if ('error' in ack) {
+                finish(false, ack.error);
+                return;
+              }
+              const normalized = normalizeSocketMessage(ack.message);
+              setHistory((prev) => ({
+                ...prev,
+                [activeContactId]: mergeMessage(prev[activeContactId] ?? [], normalized),
+              }));
+              void refreshContacts();
+              finish(true, null);
+            },
+          );
+        } catch {
+          finish(false, 'Not sent — the connection was lost. Your message is still in the box.');
+        }
       });
     },
     [activeContactId, sendPending, socketStatus, sendMessage, refreshContacts],

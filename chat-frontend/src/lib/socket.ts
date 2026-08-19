@@ -36,7 +36,8 @@ export function emitSendMessage(
   payload: SendMessagePayload,
   callback: (err: Error | null, ack?: SendMessageAck) => void,
 ): void {
-  const emitWithTimeout = socket.timeout(SEND_TIMEOUT_MS).emit as unknown as (
+  const timeoutSocket = socket.timeout(SEND_TIMEOUT_MS);
+  const emitWithTimeout = timeoutSocket.emit.bind(timeoutSocket) as unknown as (
     event: 'sendMessage',
     payload: SendMessagePayload,
     callback: (err: Error | null, ack?: SendMessageAck) => void,

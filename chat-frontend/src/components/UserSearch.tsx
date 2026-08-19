@@ -111,21 +111,21 @@ export function UserSearch({ currentUserId, onOpenContact }: UserSearchProps) {
             <p className="state-note">No people found for “{trimmedTerm}”.</p>
           )}
           {results.map((contact) => (
-            <button
-              key={contact.id}
-              type="button"
-              className="row-button"
-              role="listitem"
-              onClick={() => selectContact(contact)}
-            >
-              <Avatar person={contact} size="sm" />
-              <span className="row-main">
-                <span className="row-title">{displayName(contact)}</span>
-                {contact.firstName || contact.lastName ? (
-                  <span className="row-sub">{contact.email}</span>
-                ) : null}
-              </span>
-            </button>
+            <div key={contact.id} role="listitem">
+              <button
+                type="button"
+                className="row-button"
+                onClick={() => selectContact(contact)}
+              >
+                <Avatar person={contact} size="sm" />
+                <span className="row-main">
+                  <span className="row-title">{displayName(contact)}</span>
+                  {contact.firstName || contact.lastName ? (
+                    <span className="row-sub">{contact.email}</span>
+                  ) : null}
+                </span>
+              </button>
+            </div>
           ))}
         </div>
       )}
