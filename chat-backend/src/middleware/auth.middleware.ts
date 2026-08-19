@@ -2,6 +2,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { isValidObjectId } from "../utils/validation.js";
 
 dotenv.config();
 
@@ -16,9 +17,10 @@ export const verifyUser = (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).json({ message: "could not verify user" });
         }
         const decoded = jwt.verify(req.cookies.jwt, secret) as { userId?: unknown };
-        if (typeof decoded.userId === 'string') {
-            req.userId = decoded.userId;
+        if (!isValidObjectId(decoded.userId)) {
+            return res.status(401).json({ message: "Not authenticated" });
         }
+        req.userId = decoded.userId;
         //pass onto the next method now with userId inside request
         next();
     } catch (error) {

@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import authRouter from '../routes/auth.routes.js';
 import { UserModel } from "../models/user.model.js";
 import {jest} from '@jest/globals';
@@ -64,6 +65,52 @@ describe('Auth Endpoints', () => {
 
             expect(response.status).toBe(409);
         });
+
+        it('should reject passwords shorter than 8 characters', async () => {
+            const response = await request(app)
+                .post('/api/auth/signup')
+                .send({
+                    email: 'shortpass@example.com',
+                    password: '1234567'
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toHaveProperty('message', 'Password must be between 8 and 72 characters');
+        });
+
+        it('should reject passwords longer than 72 characters', async () => {
+            const response = await request(app)
+                .post('/api/auth/signup')
+                .send({
+                    email: 'longpass@example.com',
+                    password: 'p'.repeat(73)
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toHaveProperty('message', 'Password must be between 8 and 72 characters');
+        });
+
+        it('should accept a password of exactly 8 characters', async () => {
+            const response = await request(app)
+                .post('/api/auth/signup')
+                .send({
+                    email: 'minpass@example.com',
+                    password: '12345678'
+                });
+
+            expect(response.status).toBe(201);
+        });
+
+        it('should accept a password of exactly 72 characters', async () => {
+            const response = await request(app)
+                .post('/api/auth/signup')
+                .send({
+                    email: 'maxpass@example.com',
+                    password: 'p'.repeat(72)
+                });
+
+            expect(response.status).toBe(201);
+        });
     });
 
     describe('POST /api/auth/login', () => {
@@ -97,7 +144,8 @@ describe('Auth Endpoints', () => {
                     password: 'wrongpassword'
                 });
 
-            expect(response.status).toBe(400);
+            expect(response.status).toBe(401);
+            expect(response.body).toHaveProperty('message', 'Invalid email or password');
         });
 
         it('should reject non-existent user', async () => {
@@ -108,7 +156,26 @@ describe('Auth Endpoints', () => {
                     password: 'password123'
                 });
 
-            expect(response.status).toBe(404);
+            expect(response.status).toBe(401);
+            expect(response.body).toHaveProperty('message', 'Invalid email or password');
+        });
+
+        it('should authenticate a pre-existing password shorter than 8 characters', async () => {
+            const passwordHash = await bcrypt.hash('short', 10);
+            await UserModel.create({
+                email: 'legacy-short@example.com',
+                password: passwordHash
+            });
+
+            const response = await request(app)
+                .post('/api/auth/login')
+                .send({
+                    email: 'legacy-short@example.com',
+                    password: 'short'
+                });
+
+            expect(response.status).toBe(200);
+            expect(response.body.user).toHaveProperty('email', 'legacy-short@example.com');
         });
     });
 
@@ -157,7 +224,18 @@ describe('Auth Endpoints', () => {
                 .set('Cookie', `jwt=${forgedToken}`);
 
             expect(response.status).toBe(401);
-            expect(response.body).toHaveProperty('message', 'request not authenticated');
+            expect(response.body).toHaveProperty('message', 'Not authenticated');
+        });
+
+        it('should return 401 when a verified userId is not a valid ObjectId', async () => {
+            const forgedToken = jwt.sign({ userId: 'not-an-id' }, process.env.JWT_SECRET!);
+
+            const response = await request(app)
+                .get('/api/auth/userinfo')
+                .set('Cookie', `jwt=${forgedToken}`);
+
+            expect(response.status).toBe(401);
+            expect(response.body).toHaveProperty('message', 'Not authenticated');
         });
 
         it('should return 500 when database fails during userinfo', async () => {

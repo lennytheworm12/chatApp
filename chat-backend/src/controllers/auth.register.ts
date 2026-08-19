@@ -7,6 +7,7 @@ import { generateTokenAndSetCookie } from "../utils/auth.utils.js";
 import { isValidEmail, normalizeEmail } from "../utils/validation.js";
 import { sanitizeUser } from "../utils/user.utils.js";
 
+const MIN_PASSWORD_LENGTH = 8;
 const MAX_PASSWORD_LENGTH = 72;
 
 //add user to database and create a signed token inside a cookie for future requests
@@ -14,8 +15,11 @@ export const registerUser = async (req: Request<{}, {}, RegisterData>, res: Resp
     const email = normalizeEmail(req.body?.email);
     const password = req.body?.password;
 
-    if (!isValidEmail(email) || typeof password !== 'string' || password.length === 0 || password.length > MAX_PASSWORD_LENGTH) {
+    if (!isValidEmail(email) || typeof password !== 'string' || password.length === 0) {
         return res.status(400).json({ message: "Email and password are required" });
+    }
+    if (password.length < MIN_PASSWORD_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
+        return res.status(400).json({ message: "Password must be between 8 and 72 characters" });
     }
 
     try {

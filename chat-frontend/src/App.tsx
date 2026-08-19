@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { AuthProvider } from './auth/AuthProvider';
+import { useAuth } from './auth/context';
+import { AuthPage } from './components/AuthPage';
+import { BootScreen } from './components/BootScreen';
+import { ChatApp } from './components/ChatApp';
+import { ProfileSetup } from './components/ProfileSetup';
 
-function App() {
-  const [count, setCount] = useState(0)
+function AppShell() {
+  const { status, user, error, login, signup, logout, updateProfile, retryBootstrap } = useAuth();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  if (status === 'bootstrapping') return <BootScreen />;
+
+  if (status === 'signedOut' || !user) {
+    return (
+      <AuthPage
+        bootstrapError={error}
+        onRetryBootstrap={retryBootstrap}
+        onLogin={login}
+        onSignup={signup}
+      />
+    );
+  }
+
+  if (!user.profileSetup) {
+    return <ProfileSetup user={user} onComplete={updateProfile} />;
+  }
+
+  return <ChatApp user={user} onLogout={logout} />;
 }
 
-export default App
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppShell />
+    </AuthProvider>
+  );
+}

@@ -19,12 +19,12 @@ export const loginUser = async (req: Request<{}, {}, LoginData>, res: Response) 
     try {
         const user = await UserModel.findOne({ email }).select('+password');
         if (!user) {
-            return res.status(404).json({ message: "user not found" });
+            return res.status(401).json({ message: "Invalid email or password" });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: "invalid password" });
+            return res.status(401).json({ message: "Invalid email or password" });
         }
 
         generateTokenAndSetCookie(user._id.toString(), res);
