@@ -24,6 +24,7 @@ const messageSchema = new Schema<MessageInterface>({
 
 messageSchema.index({ sender: 1, timestamp: -1 });
 messageSchema.index({ recipient: 1, timestamp: -1 });
+messageSchema.index({ sender: 1, recipient: 1, timestamp: 1 });
 //for faster querying of messages
 
 export const MessageModel = model<MessageInterface>('Message', messageSchema);

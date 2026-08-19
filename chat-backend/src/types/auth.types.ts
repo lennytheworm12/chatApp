@@ -21,8 +21,8 @@ export interface LoginData {
 
 //we make a type for updating profile data
 export interface UpdateProfileData {
-    firstName?:string;
-    lastName?: string;
+    firstName: string;
+    lastName: string;
     color?: string;
     image?: string;
 }
@@ -36,4 +36,3 @@ export interface SearchContactsData {
 export interface GetMessagesData {
     id:string;
 }
-

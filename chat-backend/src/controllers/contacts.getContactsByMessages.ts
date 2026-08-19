@@ -5,8 +5,8 @@ import type { Request, Response } from 'express';
 import { MessageModel } from "../models/message.model.js";
 import { UserModel } from "../models/user.model.js";
 
-import type { MessageInterface } from "../models/message.model.js";
-// import type { FilterQuery } from 'mongoose';
+import { Types } from 'mongoose';
+import { isValidObjectId } from "../utils/validation.js";
 
 export const getContactBySortedMessages = async (req: Request, res: Response) => {
     //given query the message db with user id and return msgs containing req.user
@@ -14,12 +14,15 @@ export const getContactBySortedMessages = async (req: Request, res: Response) =>
         if (!req.userId) {
             return res.status(401).json({ message: 'Not authenticated' });
         }
+        if (!isValidObjectId(req.userId)) {
+            return res.status(401).json({ message: 'Not authenticated' });
+        }
         const messages = await MessageModel.find({
             $or: [
-                { sender: req.userId },
-                { recipient: req.userId }
+                { sender: new Types.ObjectId(req.userId) },
+                { recipient: new Types.ObjectId(req.userId) }
             ]
-        } as any).sort({ timestamp: -1 });
+        }).sort({ timestamp: -1 });
 
         const contactMap = new Map<string, Date>();
 
