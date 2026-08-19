@@ -2,9 +2,11 @@ import request from 'supertest';
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 import messageRouter from '../routes/messages.routes.js';
 import authRouter from '../routes/auth.routes.js';
 import { MessageModel } from '../models/message.model.js';
+import { jest } from '@jest/globals';
 
 const app = express();
 app.use(express.json());
@@ -97,15 +99,52 @@ describe('Message Endpoints', () => {
 
             expect(response.status).toBe(401);
         });
+
+        it('should return 401 when a verified token carries no userId', async () => {
+            const forgedToken = jwt.sign({}, process.env.JWT_SECRET!);
+
+            const response = await request(app)
+                .post('/api/messages/get-messages')
+                .set('Cookie', `jwt=${forgedToken}`)
+                .send({ id: '123' });
+
+            expect(response.status).toBe(401);
+            expect(response.body).toHaveProperty('message', 'Not authenticated');
+        });
     });
-    it('should return 500 when id is invalid format', async () => {
+    it('should return 400 when id is invalid format', async () => {
         const { agent } = await createAuthenticatedUser('user@test.com', 'password123');
 
         const response = await agent
             .post('/api/messages/get-messages')
             .send({ id: 'invalid' });
 
-        // Returns 500 because Mongoose can't cast invalid ObjectId
+        expect(response.status).toBe(400);
+    });
+
+    it('should return 400 when id is missing', async () => {
+        const { agent } = await createAuthenticatedUser('user@test.com', 'password123');
+
+        const response = await agent
+            .post('/api/messages/get-messages')
+            .send({});
+
+        expect(response.status).toBe(400);
+    });
+
+    it('should return 500 when database fails while retrieving messages', async () => {
+        const { agent } = await createAuthenticatedUser('user@test.com', 'password123');
+        jest.spyOn(MessageModel, 'find').mockImplementationOnce(() => {
+            throw new Error('Database connection lost');
+        });
+
+        const response = await agent
+            .post('/api/messages/get-messages')
+            .send({ id: new mongoose.Types.ObjectId().toString() });
+
         expect(response.status).toBe(500);
+        expect(response.body).toHaveProperty('message', 'Failed to retrieve messages');
+
+        jest.restoreAllMocks();
     });
 });
