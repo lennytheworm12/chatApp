@@ -1,0 +1,34 @@
+# Render Blueprint for the full-stack chat MVP.
+#
+# One same-origin Node web service: Express serves the built frontend at /,
+# REST under /api, Socket.IO at /socket.io, and /health for liveness checks.
+# React and Express remain separate source layers; the backend build serves
+# the frontend's built dist directory in production.
+services:
+  - type: web
+    name: portfolio-dm-lennytheworm12
+    runtime: node
+    plan: free
+    autoDeployTrigger: commit
+    healthCheckPath: /health
+    buildCommand: >-
+      cd chat-backend && pnpm install --frozen-lockfile && pnpm build &&
+      cd ../chat-frontend && pnpm install --frozen-lockfile && pnpm build
+    startCommand: node chat-backend/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # MongoDB connection string. sync: false keeps the value out of the
+      # Blueprint; Render prompts for it on the first deploy.
+      - key: MONGO_URL
+        sync: false
+      # Generated once at service creation and stored by Render.
+      - key: JWT_SECRET
+        generateValue: true
+      # Deterministic service URL: a web service is always reachable at
+      # https://<service-name>.onrender.com, so a uniquely named service gives
+      # a stable same-origin allowlist entry. If the service name ever changes,
+      # Render also injects RENDER_EXTERNAL_URL at runtime; set CLIENT_ORIGIN
+      # to that value in the Dashboard instead.
+      - key: CLIENT_ORIGIN
+        value: https://portfolio-dm-lennytheworm12.onrender.com
