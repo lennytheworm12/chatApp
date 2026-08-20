@@ -111,7 +111,17 @@ pnpm test
 pnpm build
 ```
 
-The suite runs 120 tests across 8 Jest/Supertest suites against an in-memory MongoDB and reports 97.37% statement, 92.94% branch, 98.07% function, and 97.23% line coverage, with thresholds enforced in `jest.config.cjs`.
+The suite runs 182 tests across 12 Jest/Supertest suites against an in-memory MongoDB and reports 98.45% statement, 94.63% branch, 98.52% function, and 98.52% line coverage, with thresholds enforced in `jest.config.cjs`.
+
+**Real-time scale benchmark** (repeatable, authenticated Socket.IO + MongoDB
+message-path load test; see [docs/realtime-scale-benchmark.md](docs/realtime-scale-benchmark.md)):
+
+```bash
+cd chat-backend
+pnpm test:scale
+```
+
+Results land in `chat-backend/benchmark-results/`.
 
 **Frontend**
 

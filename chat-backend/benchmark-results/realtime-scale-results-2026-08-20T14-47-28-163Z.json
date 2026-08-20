@@ -1,0 +1,544 @@
+{
+  "generatedAt": "2026-08-20T14:47:28.163Z",
+  "command": "pnpm test:scale",
+  "environment": {
+    "timestamp": "2026-08-20T14:46:02.642Z",
+    "os": {
+      "platform": "linux",
+      "type": "Linux",
+      "arch": "x64",
+      "release": "6.6.87.2-microsoft-standard-WSL2"
+    },
+    "cpu": {
+      "model": "AMD Ryzen 7 5700",
+      "count": 16
+    },
+    "totalMemoryBytes": 12541161472,
+    "nodeVersion": "v24.12.0",
+    "versions": {
+      "mongoose": "9.2.0",
+      "socket.io": "4.8.3",
+      "socket.io-client": "4.8.3",
+      "mongodb-memory-server": "11.0.1"
+    }
+  },
+  "settings": {
+    "runsPerProfile": 3,
+    "profiles": [
+      {
+        "name": "25-clients-1000-messages",
+        "clients": 25,
+        "messages": 1000
+      },
+      {
+        "name": "50-clients-5000-messages",
+        "clients": 50,
+        "messages": 5000
+      },
+      {
+        "name": "100-clients-10000-messages",
+        "clients": 100,
+        "messages": 10000
+      }
+    ],
+    "jwtCookieName": "jwt",
+    "transports": [
+      "websocket"
+    ],
+    "ackTimeoutMs": 15000,
+    "connectTimeoutMs": 15000,
+    "settleTimeoutMs": 15000,
+    "quietPeriodMs": 500,
+    "heapSampleIntervalMs": 50,
+    "profileWatchdogMs": 600000,
+    "mongoBinaryVersion": "7.0.24"
+  },
+  "runs": [
+    {
+      "runIndex": 0,
+      "profiles": [
+        {
+          "profile": {
+            "name": "25-clients-1000-messages",
+            "clients": 25,
+            "messages": 1000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:03.082Z",
+          "wallClockMs": 3191.5039719999995,
+          "metrics": {
+            "totalAttempted": 1000,
+            "totalPersisted": 1000,
+            "successfulSends": 1000,
+            "totalExpectedDeliveries": 2000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 2853.420038,
+            "throughputPerSec": 350.45664034129135,
+            "medianDeliveryLatencyMs": 49.63771399999996,
+            "p95DeliveryLatencyMs": 98.09519299999988,
+            "heapBaselineMb": 39.38,
+            "heapPeakMb": 65.32,
+            "heapDeltaMb": 25.94
+          },
+          "diagnostics": {
+            "ackSuccess": 1000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 1000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 1000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "50-clients-5000-messages",
+            "clients": 50,
+            "messages": 5000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:06.274Z",
+          "wallClockMs": 9447.786346,
+          "metrics": {
+            "totalAttempted": 5000,
+            "totalPersisted": 5000,
+            "successfulSends": 5000,
+            "totalExpectedDeliveries": 10000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 9219.972022000002,
+            "throughputPerSec": 542.3009948478561,
+            "medianDeliveryLatencyMs": 84.81424200000038,
+            "p95DeliveryLatencyMs": 104.00597599999946,
+            "heapBaselineMb": 48.62,
+            "heapPeakMb": 110.24,
+            "heapDeltaMb": 61.62
+          },
+          "diagnostics": {
+            "ackSuccess": 5000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 5000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 5000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "100-clients-10000-messages",
+            "clients": 100,
+            "messages": 10000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:15.722Z",
+          "wallClockMs": 17117.401506,
+          "metrics": {
+            "totalAttempted": 10000,
+            "totalPersisted": 10000,
+            "successfulSends": 10000,
+            "totalExpectedDeliveries": 20000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 16645.813647,
+            "throughputPerSec": 600.7516491572796,
+            "medianDeliveryLatencyMs": 158.54257150000012,
+            "p95DeliveryLatencyMs": 183.0401290000009,
+            "heapBaselineMb": 63.34,
+            "heapPeakMb": 232.96,
+            "heapDeltaMb": 169.62
+          },
+          "diagnostics": {
+            "ackSuccess": 10000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 10000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 10000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "runIndex": 1,
+      "profiles": [
+        {
+          "profile": {
+            "name": "25-clients-1000-messages",
+            "clients": 25,
+            "messages": 1000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:32.839Z",
+          "wallClockMs": 2350.352079000004,
+          "metrics": {
+            "totalAttempted": 1000,
+            "totalPersisted": 1000,
+            "successfulSends": 1000,
+            "totalExpectedDeliveries": 2000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 2181.5849769999986,
+            "throughputPerSec": 458.3823277767285,
+            "medianDeliveryLatencyMs": 40.18213250000008,
+            "p95DeliveryLatencyMs": 45.484189000002516,
+            "heapBaselineMb": 95.38,
+            "heapPeakMb": 159.02,
+            "heapDeltaMb": 63.64
+          },
+          "diagnostics": {
+            "ackSuccess": 1000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 1000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 1000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "50-clients-5000-messages",
+            "clients": 50,
+            "messages": 5000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:35.190Z",
+          "wallClockMs": 8513.579293000003,
+          "metrics": {
+            "totalAttempted": 5000,
+            "totalPersisted": 5000,
+            "successfulSends": 5000,
+            "totalExpectedDeliveries": 10000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 8330.961423999994,
+            "throughputPerSec": 600.1708260940812,
+            "medianDeliveryLatencyMs": 77.96063149999827,
+            "p95DeliveryLatencyMs": 85.29121000000305,
+            "heapBaselineMb": 151.15,
+            "heapPeakMb": 252.03,
+            "heapDeltaMb": 100.88
+          },
+          "diagnostics": {
+            "ackSuccess": 5000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 5000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 5000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "100-clients-10000-messages",
+            "clients": 100,
+            "messages": 10000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:46:43.704Z",
+          "wallClockMs": 16653.270638,
+          "metrics": {
+            "totalAttempted": 10000,
+            "totalPersisted": 10000,
+            "successfulSends": 10000,
+            "totalExpectedDeliveries": 20000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 16227.559908999996,
+            "throughputPerSec": 616.2355927864351,
+            "medianDeliveryLatencyMs": 156.7221585000043,
+            "p95DeliveryLatencyMs": 175.0166670000035,
+            "heapBaselineMb": 151,
+            "heapPeakMb": 232.7,
+            "heapDeltaMb": 81.69
+          },
+          "diagnostics": {
+            "ackSuccess": 10000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 10000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 10000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        }
+      ]
+    },
+    {
+      "runIndex": 2,
+      "profiles": [
+        {
+          "profile": {
+            "name": "25-clients-1000-messages",
+            "clients": 25,
+            "messages": 1000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:47:00.358Z",
+          "wallClockMs": 2391.9083739999987,
+          "metrics": {
+            "totalAttempted": 1000,
+            "totalPersisted": 1000,
+            "successfulSends": 1000,
+            "totalExpectedDeliveries": 2000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 2184.461107999996,
+            "throughputPerSec": 457.77880701916433,
+            "medianDeliveryLatencyMs": 39.220055000001594,
+            "p95DeliveryLatencyMs": 53.13803700000426,
+            "heapBaselineMb": 230.25,
+            "heapPeakMb": 236.82,
+            "heapDeltaMb": 6.57
+          },
+          "diagnostics": {
+            "ackSuccess": 1000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 1000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 1000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "50-clients-5000-messages",
+            "clients": 50,
+            "messages": 5000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:47:02.750Z",
+          "wallClockMs": 8576.561986999994,
+          "metrics": {
+            "totalAttempted": 5000,
+            "totalPersisted": 5000,
+            "successfulSends": 5000,
+            "totalExpectedDeliveries": 10000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 8418.362546999997,
+            "throughputPerSec": 593.9397325887112,
+            "medianDeliveryLatencyMs": 77.23024800000348,
+            "p95DeliveryLatencyMs": 98.2800070000012,
+            "heapBaselineMb": 71.3,
+            "heapPeakMb": 174.06,
+            "heapDeltaMb": 102.77
+          },
+          "diagnostics": {
+            "ackSuccess": 5000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 5000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 5000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        },
+        {
+          "profile": {
+            "name": "100-clients-10000-messages",
+            "clients": 100,
+            "messages": 10000
+          },
+          "pass": true,
+          "error": null,
+          "startedAt": "2026-08-20T14:47:11.327Z",
+          "wallClockMs": 16645.398069000003,
+          "metrics": {
+            "totalAttempted": 10000,
+            "totalPersisted": 10000,
+            "successfulSends": 10000,
+            "totalExpectedDeliveries": 20000,
+            "droppedDeliveries": 0,
+            "duplicateDeliveries": 0,
+            "runtimeMs": 16250.399124000003,
+            "throughputPerSec": 615.3695010008172,
+            "medianDeliveryLatencyMs": 155.29240799999388,
+            "p95DeliveryLatencyMs": 185.8467810000002,
+            "heapBaselineMb": 142.73,
+            "heapPeakMb": 228,
+            "heapDeltaMb": 85.27
+          },
+          "diagnostics": {
+            "ackSuccess": 10000,
+            "ackErrors": 0,
+            "ackTimeouts": 0,
+            "ackEventsTotal": 10000,
+            "unexpectedAckKeys": 0,
+            "ackMetadataMismatches": 0,
+            "ackMessageIdMismatches": 0,
+            "serverAckInvocations": 10000,
+            "duplicateServerAckKeys": 0,
+            "serverAckErrors": 0,
+            "unexpectedServerAckKeys": 0,
+            "serverAckMetadataMismatches": 0,
+            "serverClientAckMismatches": 0,
+            "misdeliveries": 0,
+            "unexpectedDeliveries": 0,
+            "deliveriesWithoutSuccessfulAck": 0,
+            "deliveryMetadataMismatches": 0,
+            "deliveryMessageIdMismatches": 0,
+            "duplicatePersistedKeys": 0,
+            "persistedWithoutSuccessfulAck": 0,
+            "persistedMismatches": 0,
+            "sendSocketDisconnects": 0,
+            "sendSocketConnectErrors": 0
+          },
+          "violations": []
+        }
+      ]
+    }
+  ],
+  "overallPass": true,
+  "largestPassingProfile": "100-clients-10000-messages",
+  "failures": []
+}

@@ -57,6 +57,20 @@ pnpm test
 pnpm test --coverage
 ```
 
+### Real-Time Scale Benchmark
+
+Run the deterministic authenticated Socket.IO + MongoDB message-path benchmark
+(25/1,000, 50/5,000, and 100/10,000 clients/messages, each repeated in 3
+consecutive runs):
+
+```bash
+pnpm test:scale
+```
+
+Methodology, invariants, and metrics are documented in
+[docs/realtime-scale-benchmark.md](../docs/realtime-scale-benchmark.md);
+JSON results are written to `benchmark-results/`.
+
 ---
 
 ## API Endpoints
