@@ -4,6 +4,9 @@ node_modules
 # compiled output — tsc generates this, never commit it
 dist
 
+# test coverage output
+coverage
+
 # environment variables 
 .env
 .env.local

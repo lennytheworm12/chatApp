@@ -25,6 +25,10 @@ module.exports = {
         'src/**/*.ts',
         '!src/**/*.d.ts',
         '!src/index.ts',
+        // The scale benchmark is a standalone harness (documented in
+        // docs/realtime-scale-benchmark.md); its pure helpers have focused
+        // tests, but the harness itself runs end to end via pnpm test:scale.
+        '!src/benchmarks/realtime-scale.ts',
     ],
 
     coverageThreshold: {

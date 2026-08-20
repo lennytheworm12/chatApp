@@ -4,42 +4,41 @@ import bcrypt from 'bcryptjs';
 import type { RegisterData } from "../types/auth.types.js";
 import { UserModel } from "../models/user.model.js";
 import { generateTokenAndSetCookie } from "../utils/auth.utils.js";
+import { isValidEmail, normalizeEmail } from "../utils/validation.js";
+import { sanitizeUser } from "../utils/user.utils.js";
+
+const MIN_PASSWORD_LENGTH = 8;
+const MAX_PASSWORD_LENGTH = 72;
 
 //add user to database and create a signed token inside a cookie for future requests
 export const registerUser = async (req: Request<{}, {}, RegisterData>, res: Response) => {
+    const email = normalizeEmail(req.body?.email);
+    const password = req.body?.password;
 
-    //logic for registering a user
-    //create a new user model and then populate with req.body
-    //check if email is already in use return out immediately
-    const existingUser = await UserModel.findOne({ email: req.body.email });
-    if (existingUser) {
-        return res.status(409).json({ message: "email already in use" });
-    }
-    if (!req.body.email || !req.body.password) {
+    if (!isValidEmail(email) || typeof password !== 'string' || password.length === 0) {
         return res.status(400).json({ message: "Email and password are required" });
+    }
+    if (password.length < MIN_PASSWORD_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
+        return res.status(400).json({ message: "Password must be between 8 and 72 characters" });
     }
 
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const newUser = new UserModel({
-            //mongoose auto 
-            email: req.body.email,
-            password: hashedPassword,
-        })
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: "email already in use" });
+        }
 
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new UserModel({
+            email,
+            password: hashedPassword,
+        });
 
         await newUser.save();
-        //create the token and set res cookie 
         generateTokenAndSetCookie(newUser._id.toString(), res);
 
-
-        return res.status(201).json({ user: newUser });
+        return res.status(201).json({ user: sanitizeUser(newUser) });
     } catch (error) {
-        console.error("something went wrong during registeration:", error);
         return res.status(500).json({ message: "server error during registration " });
-
     }
-
-
-
-}
+};
